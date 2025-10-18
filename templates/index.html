@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Консультант Транснефть</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Three.js для 3D (используем importmap для ES модулей) -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+    <!-- Главный контейнер -->
+    <div class="container">
+        <!-- Левая панель - Чат -->
+        <div class="chat-panel">
+            <!-- Заголовок -->
+            <div class="chat-header">
+                <div class="header-icon">💬</div>
+                <h1>AI-Консультант</h1>
+            </div>
+
+            <!-- Область сообщений -->
+            <div class="messages-area" id="messagesArea">
+                <!-- Приветственное сообщение -->
+                <div class="message assistant">
+                    <div class="message-bubble">
+                        <div class="message-header">
+                            <span class="avatar">👨‍💼</span>
+                            <span class="name">AI-Консультант</span>
+                        </div>
+                        <div class="message-content">
+                            <p>Добро пожаловать в систему AI-консультанта Транснефть!</p>
+                            <p>Я готов ответить на ваши вопросы о компании, помочь с навигацией по системе и предоставить необходимую информацию.</p>
+                            <p>Задайте мне вопрос, и я с радостью помогу вам! 👋</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Панель thinking (скрыта по умолчанию) -->
+            <div class="thinking-panel" id="thinkingPanel" style="display: none;">
+                <div class="thinking-header">
+                    <span class="thinking-icon">💭</span>
+                    <span class="thinking-title">Процесс размышления</span>
+                </div>
+                <div class="thinking-content" id="thinkingContent"></div>
+            </div>
+
+            <!-- Панель ввода -->
+            <div class="input-panel">
+                <button class="icon-button" id="micButton" title="Голосовой ввод">
+                    <span class="icon">🎤</span>
+                </button>
+                <button class="icon-button" id="cameraButton" title="Включить камеру">
+                    <span class="icon">📷</span>
+                </button>
+                <textarea 
+                    id="messageInput" 
+                    placeholder="Введите ваш вопрос..." 
+                    rows="1"
+                ></textarea>
+                <button class="icon-button" id="speakerButton" title="Озвучка ответов">
+                    <span class="icon">🔊</span>
+                </button>
+                <button class="send-button" id="sendButton">
+                    <span class="icon">➤</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Правая панель - 3D Персонаж -->
+        <div class="assistant-panel">
+            <!-- 3D Модель персонажа -->
+            <div class="character-3d-container" id="character3dContainer"></div>
+
+            <!-- Статус -->
+            <div class="status-text" id="statusText">Готов к работе</div>
+
+            <!-- Логотип -->
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/Transneft.png') }}" alt="Транснефть" class="logo-image">
+            </div>
+
+            <!-- Индикаторы -->
+            <div class="indicators">
+                <div class="indicator" id="voiceIndicator">
+                    <span class="indicator-dot"></span>
+                    <span class="indicator-label">Микрофон</span>
+                </div>
+                <div class="indicator" id="cameraIndicator">
+                    <span class="indicator-dot"></span>
+                    <span class="indicator-label">Камера</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Загружаем app.js как ES модуль -->
+    <script type="module" src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
